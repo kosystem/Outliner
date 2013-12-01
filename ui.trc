@@ -1,0 +1,50 @@
+#　test
+wxFrame:
+    name: mainFrame
+    title: My Frame
+    wxPanel:
+        name: mainPanel
+        wxFlexGridSizer:
+            cols: 2
+            rows: 3
+            vgap: 5
+            hgap: 5
+
+            sizeritem:
+                wxStaticText:
+                    name: label1
+                    label: First name:
+            sizeritem:
+                wxTextCtrl:
+                    name: text1
+
+            sizeritem:
+                wxStaticText:
+                    name: label2
+                    label: Last nale:
+            sizeritem:
+                wxTextCtrl:
+                    name: text2
+
+            spacer:
+                size: 0, 0
+
+            sizeritem:
+                wxButton:
+                    name: button
+                    label: Submit
+
+    wxMenuBar:
+        name: mainMenu
+        wxMenu:
+            name: menu_file
+            label: File
+            style: wxMENU_TEAROFF
+            wxMenuItem:
+                name: menu_about
+                label: _About...
+            separator:
+                name: separatar
+            wxMenuItem:
+                name: menu1
+                label: Dialog1

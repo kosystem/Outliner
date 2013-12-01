@@ -1,0 +1,17 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: toXrc
+scopeName: text.toXrc
+fileTypes: [trc]
+uuid: 7a6d81c0-5471-401a-97dc-2e3646cb8916
+
+patterns:
+- name: comment.toXrc
+  match: '#.*?$'
+
+- name: support.class.toXrc
+  match: '\w+:'
+
+- name: variable.parameter.toXrc
+  match: '\w+$'
+...
