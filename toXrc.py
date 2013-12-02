@@ -9,6 +9,10 @@ class toXRC(object):
     def convert(self, src):
         src += '</resource>\n'
 
+        # comment
+        for x in reversed(list(re.finditer(r'\s*#.*?$', src, re.MULTILINE))):
+            src = src[:x.start()] + '\n' + src[x.end():]
+
         dist = ''
         # object close
         prev = 0
@@ -64,7 +68,8 @@ class toXRC(object):
 
 
 if __name__ == '__main__':
-    src = '''wxFrame:
+    src = '''# test
+wxFrame: # test comment
     name: mainFrame
     title: My Frame
     wxPanel:

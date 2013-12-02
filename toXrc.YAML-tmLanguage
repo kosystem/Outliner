@@ -6,12 +6,30 @@ fileTypes: [trc]
 uuid: 7a6d81c0-5471-401a-97dc-2e3646cb8916
 
 patterns:
-- name: comment.toXrc
-  match: '#.*?$'
+- match: '\s*#.*$'
+  name: comment.toXrc
 
-- name: support.class.toXrc
-  match: '\w+:'
+- match: '^\s*(\w+)(:)([ \t]*)$'
+  captures:
+    '1': {name: support.function.toXrc}
+    '2': {name: keyword.toXrc}
+    '3': {name: invalid.toXrc}
 
-- name: variable.parameter.toXrc
-  match: '\w+$'
+- match: '^\s*(\w+)(:) ([0-9., ]+)$'
+  captures:
+    '1': {name: entity.name.function.toXrc}
+    '2': {name: keyword.toXrc}
+    '3': {name: constant.numeric.toXrc}
+
+
+- match: '^\s*(name:) (.+)$'
+  captures:
+    '1': {name: keyword.toXrc}
+    '2': {name: string.toXrc}
+
+- match: '^\s*(\w+)(:) (.+)$'
+  captures:
+    '1': {name: entity.name.function.toXrc}
+    '2': {name: keyword.toXrc}
+    '3': {name: string.toXrc}
 ...
