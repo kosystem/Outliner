@@ -6,8 +6,11 @@ fileTypes: [trc]
 uuid: 7a6d81c0-5471-401a-97dc-2e3646cb8916
 
 patterns:
-- match: '\s*#.*$'
-  name: comment.toXrc
+- match: (?:^ *|\G *)((#).*)
+  captures:
+    '1': {name: comment.line.number-sign.toXrc}
+    '2': {name: punctuation.definition.comment.line.toXrc}
+
 
 - match: '^\s*(\w+)(:)([ \t]*)$'
   captures:
@@ -22,14 +25,15 @@ patterns:
     '3': {name: constant.numeric.toXrc}
 
 
-- match: '^\s*(name:) (.+)$'
+- match: '^\s*(name:|subclass:) (.+)$'
   captures:
     '1': {name: keyword.toXrc}
     '2': {name: string.toXrc}
 
-- match: '^\s*(\w+)(:) (.+)$'
+- match: '^\s*(\w+)(:) ([\w].+)$'
   captures:
     '1': {name: entity.name.function.toXrc}
     '2': {name: keyword.toXrc}
     '3': {name: string.toXrc}
+
 ...

@@ -3,7 +3,7 @@ wxFrame:
     name: mainFrame
     title: My Frame
     wxPanel:
-        name: mainPanel
+        name: mainPanel 
         wxFlexGridSizer:
             cols: 2
             rows: 3

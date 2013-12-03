@@ -19,7 +19,6 @@ class MyApp(wx.App):
 
     def initFrame(self):
         self.frame = self.res.LoadFrame(None, 'mainFrame')
-
         self.frame.Show()
 
 

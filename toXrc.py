@@ -28,6 +28,17 @@ class toXRC(object):
                 prev = n.start()
                 dist += x.group()
 
+        # object class with name and subclass
+        objectWithName = re.compile(
+            r'^\s*(\w+):\n\s*name: (.+)\n\s*subclass: (.+)\n',
+            re.MULTILINE)
+        for n in reversed(list(objectWithName.finditer(dist))):
+            dist = (
+                dist[:n.start(1)] +
+                '<object class="' + n.group(1) +
+                '" name="' + n.group(2) +
+                '" subclass="' + n.group(3) + '">\n' + dist[n.end():])
+
         # object class with name
         objectWithName = re.compile(
             r'^\s*(\w+):\n(\s*)name: (.+)\n',
@@ -71,6 +82,7 @@ if __name__ == '__main__':
     src = '''# test
 wxFrame: # test comment
     name: mainFrame
+    subclass: MyFrame
     title: My Frame
     wxPanel:
         name: panel
