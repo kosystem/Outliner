@@ -1,16 +1,20 @@
 import wx
+from wx.lib.expando import ExpandoTextCtrl, EVT_ETC_LAYOUT_NEEDED
 
 
 class LeftPanel(wx.Panel):
     def __init__(self, parent, id):
         wx.Panel.__init__(self, parent, id)
 
-        self.textCtrl = wx.TextCtrl(self, -1, style=wx.TE_MULTILINE)
+        self.textCtrl = ExpandoTextCtrl(self, size=(parent.Size[0]-20, -1))
+        # self.Bind(EVT_ETC_LAYOUT_NEEDED, self.OnRefit, self.textCtrl)
+        self.textCtrl.SetBackgroundColour((240, 240, 240))
+
         box = wx.BoxSizer()
         box.Add(self.textCtrl, 1, wx.EXPAND, 0)
         self.SetSizer(box)
         self.textCtrl.AppendText('1234 56 7890123 45678901234567912345679')
-        print self.textCtrl.GetChildren()
+
 
 
 class RulerPanel(wx.Panel):
@@ -19,7 +23,7 @@ class RulerPanel(wx.Panel):
         self.style = style
         self.text = wx.StaticText(self, -1, '0', (40, 60))
         self.Bind(wx.EVT_PAINT, self.OnPaint)
-        self.SetMinSize((20, 50))
+        self.SetMinSize((20, 30))
 
     def OnPaint(self, event):
         # anti aliasing
@@ -57,6 +61,13 @@ class ContentsPanel(wx.Panel):
 
         self.SetSizer(hbox)
 
+        self.Bind(EVT_ETC_LAYOUT_NEEDED, self.OnRefit)
+        self.OnRefit(EVT_ETC_LAYOUT_NEEDED)
+
+    def OnRefit(self, evt):
+        self.Fit()
+        print 'Contents:' , self.Size
+
 
 class Communicate(wx.Frame):
     def __init__(self, parent, id, title):
@@ -64,11 +75,11 @@ class Communicate(wx.Frame):
 
         panel = wx.Panel(self, -1)
 
-        ContentsPanel(panel, -1, pos=(0, 0), size=(200, 17*3+2+10))
-        ContentsPanel(panel, -1, pos=(200, 0), size=(100, 50), style=1)
+        ContentsPanel(panel, -1, pos=(0, 0), size=(200, -1))
+        ContentsPanel(panel, -1, pos=(200, 0), size=(100, -1), style=1)
         contentsPanel = ContentsPanel(panel, -1, style=2)
         contentsPanel.SetPosition((200, 50))
-        ContentsPanel(panel, -1, pos=(200, 100), size=(100, 17*5+2+10), style=3)
+        ContentsPanel(panel, -1, pos=(200, 100), size=(100, -1), style=3)
 
         # hbox = wx.BoxSizer()
         # hbox.Add(rightPanel, 1, wx.EXPAND | wx.ALL, 0)
